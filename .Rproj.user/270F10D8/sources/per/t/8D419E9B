@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1596116099028.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "505956592",
+    "id" : "8D419E9B",
+    "lastKnownWriteTime" : 1596118846,
+    "last_content_update" : 1596118846134,
+    "path" : "C:/Users/qtckp/OneDrive/Рабочий стол/SberHak/tokenize_for_DL.R",
+    "project_path" : "tokenize_for_DL.R",
+    "properties" : {
+        "cursorPosition" : "38,0",
+        "scrollLine" : "17",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

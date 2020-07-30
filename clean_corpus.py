@@ -7,7 +7,7 @@ Created on Wed Jul 29 21:40:16 2020
 
 
 import re
-
+import json
 import Stemmer
 stemmer = Stemmer.Stemmer('russian')
 
@@ -30,7 +30,7 @@ def tokenize_text_simple_regex_stemming(txt, min_token_size = 2):
 
 
 def delete_bad_words(txt, words):
-    return ' '.join([word for word in txt.split() if word not in words])
+    return ' '.join([word for word in txt.split() if word in words])
 
 
 # clean text
@@ -70,11 +70,16 @@ with open('cleaned_grams.txt', 'w') as f:
 # delete some words
 
 with open("total_voc.json", "r") as read_file:
-    total_voc = json.load(read_file)        
+    total_voc = json.load(read_file)
+    vocs = set(total_voc.keys())        
+
         
-        
+with open('cleaned_grams.txt','r') as f:
+    lines = [delete_bad_words(line.rstrip(), vocs) for line in f]   
     
     
+with open(f'cleaned{len(vocs)}.txt', 'w') as f:
+    f.writelines([line + '\n' for line in lines])  
     
     
     
