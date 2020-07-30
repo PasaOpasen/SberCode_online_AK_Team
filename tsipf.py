@@ -8,7 +8,7 @@ Created on Wed Jul 29 22:42:14 2020
 
 
 
-with open('cleaned.txt','r') as f:
+with open('cleaned_grams.txt','r') as f:
     #lines = [line.split() for line in f.readlines()]
     lines = [line.strip() for line in f.readlines()]
 
@@ -38,7 +38,7 @@ for word, count in d.items():
     if k == 20:
         break
     
- 
+print(f'total words: {sum(d.values())}, unique: {len(d)}') 
 
 
 import matplotlib.pyplot as plt
@@ -48,6 +48,28 @@ plt.title('Histogram of word counts')
 
 plt.show()    
     
+
+
+with open('not deleted words.txt','r', encoding = 'utf-8') as f:
+    not_del = [line.rstrip() for line in f if len(line) > 1]
+    not_del = set(not_del)
+
+
+total_vocab = {k: v for k, v in d.items() if (v > 100 and v < 1500) or k in not_del }
+print(f'total words: {sum(total_vocab.values())}, unique: {len(total_vocab)}') 
+
+
+
+import json
+
+with open('total_voc.json','w') as f:
+    json.dump(total_vocab,f, indent = 4)
+
+
+
+
+
+
 
 
 
