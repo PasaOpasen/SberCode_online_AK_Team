@@ -61,19 +61,25 @@ with open('cleaned.txt', 'w', encoding = 'utf16') as f:
 with open('cleaned.txt','r', encoding = 'utf16') as f:
     lines = f.readlines()
 
-with open('grams.txt','r', encoding = 'utf16') as f:
+with open('grams.txt','r') as f:
     grams = [line.rstrip() for line in f.readlines()]
     grams = {' '.join(g.split('_')): ''.join(g.split('_')) for g in grams}
+    # это чтобы сначала заменялись триграммы
+    grams = {k: v for k, v in sorted(grams.items(), key = lambda item: sum([s == ' ' for s in item[0]])) }
 
 def rep_grams(txt):
     for k in grams.keys():
-        txt = txt.replace(k, grams[k])
+        if k in txt:
+            txt = txt.replace(k, grams[k])
     return txt
 
     
 with open('cleaned_grams.txt', 'w', encoding = 'utf16') as f:
     for line in lines:
-        f.write(rep_grams(line))
+        t = rep_grams(line)
+        #if '_' in t:
+        #    print(t)
+        f.write(t)
     
     
     
@@ -81,7 +87,7 @@ with open('cleaned_grams.txt', 'w', encoding = 'utf16') as f:
 
 # delete some words
 
-with open("total_voc.json", "r", encoding = 'utf16') as read_file:
+with open("total_voc.json", "r") as read_file:
     total_voc = json.load(read_file)
     vocs = set(total_voc.keys())        
 
@@ -91,7 +97,7 @@ with open('cleaned_grams.txt','r', encoding = 'utf16') as f:
     
     
 with open(f'cleaned{len(vocs)}.txt', 'w', encoding = 'utf16') as f:
-    f.writelines([line + '\n' for line in lines])  
+    f.writelines([line + '\n' for line in lines if line])  
     
     
     
