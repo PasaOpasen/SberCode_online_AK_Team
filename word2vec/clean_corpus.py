@@ -9,9 +9,19 @@ Created on Wed Jul 29 21:40:16 2020
 import re
 import json
 import Stemmer
+import os
+
 stemmer = Stemmer.Stemmer('russian')
 
-TOKEN_RE = re.compile(r'[\w\d-]+')
+project_dir = os.path.dirname(__file__)
+project_dir = os.path.dirname(project_dir)
+
+source = os.path.join(project_dir, r'data\useful_data\all.txt')
+
+#print(source)
+
+
+TOKEN_RE = re.compile(r'[\w\d]+')
 
 rep_symb = [('ё', 'е')]
 
@@ -35,21 +45,23 @@ def delete_bad_words(txt, words):
 
 # clean text
 
-with open('Том 5.txt','r') as f:
+with open(source,'r', encoding = 'utf16') as f:
     lines = f.readlines()
 
 
-with open('cleaned.txt', 'w') as f:
+with open('cleaned.txt', 'w', encoding = 'utf16') as f:
     tocs = [' '.join(tokenize_text_simple_regex_stemming(line)) for line in lines]
     f.writelines([toc + '\n' for toc in tocs if toc])
 
 
+
+
 # replace with ngrams
 
-with open('cleaned.txt','r') as f:
+with open('cleaned.txt','r', encoding = 'utf16') as f:
     lines = f.readlines()
 
-with open('grams.txt','r') as f:
+with open('grams.txt','r', encoding = 'utf16') as f:
     grams = [line.rstrip() for line in f.readlines()]
     grams = {' '.join(g.split('_')): ''.join(g.split('_')) for g in grams}
 
@@ -59,7 +71,7 @@ def rep_grams(txt):
     return txt
 
     
-with open('cleaned_grams.txt', 'w') as f:
+with open('cleaned_grams.txt', 'w', encoding = 'utf16') as f:
     for line in lines:
         f.write(rep_grams(line))
     
@@ -69,16 +81,16 @@ with open('cleaned_grams.txt', 'w') as f:
 
 # delete some words
 
-with open("total_voc.json", "r") as read_file:
+with open("total_voc.json", "r", encoding = 'utf16') as read_file:
     total_voc = json.load(read_file)
     vocs = set(total_voc.keys())        
 
         
-with open('cleaned_grams.txt','r') as f:
+with open('cleaned_grams.txt','r', encoding = 'utf16') as f:
     lines = [delete_bad_words(line.rstrip(), vocs) for line in f]   
     
     
-with open(f'cleaned{len(vocs)}.txt', 'w') as f:
+with open(f'cleaned{len(vocs)}.txt', 'w', encoding = 'utf16') as f:
     f.writelines([line + '\n' for line in lines])  
     
     
