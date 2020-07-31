@@ -14,7 +14,7 @@ dr = os.path.dirname(__file__)
 
 data_path = join(dr, 'data')
 
-dirty_data_path = join(dr, 'dirty_data')
+dirty_data_path = join(data_path, 'dirty_data')
 
 
 appstore_path = join(dirty_data_path, 'AppStore.csv')
