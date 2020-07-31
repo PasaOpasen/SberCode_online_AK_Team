@@ -56,12 +56,24 @@ with open(appstore_path, 'r', encoding = 'utf-8') as file:
 tot = [line.replace('\n',' ').strip(bad_chars) + '\n' for line in lines[1:] if line.strip()]
 how_many += len(tot)
     
-with open(join(useful_data_path, f'appstore.txt'), 'w', encoding = 'utf-8') as file:
+with open(join(useful_data_path, f'appstore.txt'), 'w', encoding = 'utf-16') as file:
     file.writelines(tot)
     
     
+   
     
+if True:
+   lines = []
+   for i, google in enumerate(googleplay_paths):
     
+       with open(join(useful_data_path, f'google {i+1}.txt'), 'r', encoding = 'utf-16') as file:
+           lines += file.readlines()
+   
+   with open(join(useful_data_path, f'appstore.txt'), 'r', encoding = 'utf-16') as file:
+       lines += file.readlines()
+       
+   with open(join(useful_data_path, f'all.txt'), 'w', encoding = 'utf-16') as file:
+       file.writelines(lines)
     
     
     
