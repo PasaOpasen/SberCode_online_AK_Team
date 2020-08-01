@@ -32,8 +32,7 @@ def update_graph():
 
 files = [f"C:/Users/qtckp/OneDrive/Рабочий стол/SberHak/data/useful_data/google {i}.txt" for i in range (1,14)]
 appstore = "C:/Users/qtckp/OneDrive/Рабочий стол/SberHak/data/useful_data/appstore.txt"
-# utf16 for google, utf8 for apple
-with open(appstore,'r', encoding = 'utf-8') as f:
+with open(appstore,'r', encoding = 'utf-16') as f:
     lines = f.readlines()
 
 

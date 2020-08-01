@@ -35,6 +35,9 @@ import numpy as np
 vocab = list(model.wv.vocab)
 X = model.wv[vocab]
 
+full_df = pd.DataFrame(X, vocab)
+full_df.to_csv('w2v.csv')
+
 
 tsne = TSNE(n_components = 2)
 X_tsne = tsne.fit_transform(X)

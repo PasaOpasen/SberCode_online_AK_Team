@@ -151,9 +151,9 @@ class Graph:
     def show_graph_pdf(self):
         from graphviz import Digraph
         dot = Digraph(filename='gpaph.gv', 
-                      #engine='sfdp'
+                      engine='sfdp'
                       #engine='neato'
-                      engine='fdp'
+                      #engine='fdp'
                       )
         #dot.attr(size='6,6')
         
