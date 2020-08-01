@@ -11,9 +11,17 @@ with open('cleaned2984.txt', 'r', encoding = 'utf16') as f:
     lines = [line.rstrip().split() for line in f]
 
 
-model = Word2Vec(lines, size=32, window=5, min_count=1, workers=8, iter = 10)
+model = Word2Vec(lines, size=16, window=5, min_count=1, workers=8, iter = 10)
 
 model.save("word2vec 32 5 10.model")
+
+model = Word2Vec.load("word2vec 32 5 10.model")
+
+
+
+model.most_similar('кредит')
+
+
 
 
 
@@ -51,17 +59,22 @@ plt.show()
 
 
 
+# PCA
+
+word_vectors = np.array([model.wv[w] for w in vocab])
+twodim = PCA().fit_transform(word_vectors)[:,:2]
+
+
 def display_pca_scatterplot(model, words=None, sample=0):
     if sample > 0:
-        words = np.random.choice(words, sample)
+        chs = np.random.choice(range(len(words)), sample)
+        words = np.array(words)[chs]
+        two = twodim[chs,:]
         
-    word_vectors = np.array([model.wv[w] for w in words])
-
-    twodim = PCA().fit_transform(word_vectors)[:,:2]
     
     plt.figure(figsize=(6,6))
-    plt.scatter(twodim[:,0], twodim[:,1], edgecolors='k', c='r')
-    for word, (x,y) in zip(words, twodim):
+    plt.scatter(two[:,0], two[:,1], edgecolors='k', c='r')
+    for word, (x,y) in zip(words, two):
         plt.text(x+0.05, y+0.05, word)
     plt.savefig('pca.png', dpi = 350)
     plt.show()
